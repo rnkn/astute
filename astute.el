@@ -60,6 +60,11 @@
               (const :tag "En Dashes"     en-dash)
               (const :tag "Em Dashes"     em-dash)))
 
+(defcustom astute-double-space-sentences
+  nil
+  "When non-nil, display sentences as double-spaced."
+  :type 'boolean)
+
 ;; :set (lambda (symbol value)
 ;;       (set-default symbol value)
 ;;       (mapc (lambda (buffer)
@@ -91,7 +96,10 @@
            `((1 '(face nil display ,(char-to-string 8211))))))
    (when (memq 'em-dash astute-transform-list)
      (cons astute-em-dash-regexp
-           `((1 '(face nil display ,(char-to-string 8212))))))))
+           `((1 '(face nil display ,(char-to-string 8212))))))
+   (when astute-double-space-sentences
+     (cons (sentence-end)
+           `((2 '(face nil display "  ")))))))
 
 ;;;###autoload
 (define-minor-mode astute-mode

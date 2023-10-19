@@ -110,8 +110,8 @@
     (setq astute--keywords nil))
   (if astute-mode
       (when (setq astute--keywords (astute-init-font-lock))
-    (font-lock-add-keywords nil astute--keywords)
-    (font-lock-flush))
+        (font-lock-add-keywords nil astute--keywords t)
+        (font-lock-flush))
     (with-silent-modifications
       (remove-text-properties (point-min) (point-max) '(display)))))
 

@@ -63,13 +63,6 @@
   "When non-nil, display sentences as double-spaced."
   :type 'boolean)
 
-;; :set (lambda (symbol value)
-;;       (set-default symbol value)
-;;       (mapc (lambda (buffer)
-;;                (with-current-buffer buffer
-;;                  (when astute-mode (font-lock-flush))))
-;;              (buffer-list))))
-
 (defvar-local astute--keywords nil)
 
 (defun astute-init-font-lock ()

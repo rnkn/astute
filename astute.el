@@ -24,9 +24,6 @@
 
 ;;; Code:
 
-(defvar astute-double-quotes-regexp
-  "\\(\"\\).+?\\(\"\\)")
-
 (defvar astute-double-quote-open-regexp
   "\\(\"\\)[[:alnum:][:punct:]]")
 

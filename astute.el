@@ -55,7 +55,8 @@
   :type '(set (const :tag "Single Quotes" single-quote)
               (const :tag "Double Quotes" double-quote)
               (const :tag "En Dashes"     en-dash)
-              (const :tag "Em Dashes"     em-dash)))
+              (const :tag "Em Dashes"     em-dash))
+  :safe 'listp)
 
 (defcustom astute-double-space-sentences
   nil

@@ -1,8 +1,8 @@
 ;;; astute.el --- A minor mode to redisplay smart typography  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021  Paul W. Rankin
+;; Copyright (C) 2021-2023  Paul W. Rankin
 
-;; Author: Paul W. Rankin <pwr@bydasein.com>
+;; Author: Paul W. Rankin <hello@paulwrankin.com>
 ;; Keywords: faces, wp
 
 ;; This program is free software; you can redistribute it and/or modify

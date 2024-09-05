@@ -72,6 +72,15 @@
               (const :tag "Em Dashes"     em-dash))
   :safe 'listp)
 
+(defcustom astute-prefix-single-quote-close-regexp
+  '("[0-9][0-9]s?"
+    "bout"
+    "em"
+    "cause"
+    "round")
+  "List of regular expressions that should be prefixed by a closing quote."
+  :type '(repeat regexp))
+
 (defcustom astute-double-space-sentences
   nil
   "When non-nil, display sentences as double-spaced."
@@ -80,31 +89,38 @@
 (defvar-local astute--keywords nil)
 
 (defun astute-init-font-lock ()
-  (list
-   (when (memq 'single-quote astute-transform-list)
-     (cons astute-single-quote-open-regexp
-           `((1 '(face nil display ,(char-to-string 8216))))))
-   (when (memq 'single-quote astute-transform-list)
-     (cons astute-single-quote-close-regexp
-           `((1 '(face nil display ,(char-to-string 8217))))))
-   (when (memq 'single-quote astute-transform-list)
-     (cons astute-single-quote-inner-regexp
-           `((1 '(face nil display ,(char-to-string 8217))))))
-   (when (memq 'double-quote astute-transform-list)
-     (cons astute-double-quote-open-regexp
-           `((1 '(face nil display ,(char-to-string 8220))))))
-   (when (memq 'double-quote astute-transform-list)
-     (cons astute-double-quote-close-regexp
-           `((1 '(face nil display ,(char-to-string 8221))))))
-   (when (memq 'en-dash astute-transform-list)
-     (cons astute-en-dash-regexp
-           `((1 '(face nil display ,(char-to-string 8211))))))
-   (when (memq 'em-dash astute-transform-list)
-     (cons astute-em-dash-regexp
-           `((1 '(face nil display ,(char-to-string 8212))))))
-   (when astute-double-space-sentences
-     (cons (sentence-end)
-           `((2 '(face nil display "  ")))))))
+  (delq nil
+        (list
+         (when (memq 'single-quote astute-transform-list)
+           (cons astute-single-quote-open-regexp
+                 `((1 '(face nil display ,(char-to-string 8216))))))
+         (when (memq 'single-quote astute-transform-list)
+           (cons astute-single-quote-inner-regexp
+                 `((1 '(face nil display ,(char-to-string 8217))))))
+         (when (memq 'single-quote astute-transform-list)
+           (cons (string-join
+                  (cons astute-single-quote-close-regexp
+                        (mapcar
+                         (lambda (r)
+                           (concat "\\(?1:'\\)" r))
+                         astute-prefix-single-quote-close-regexp))
+                  "\\|")
+                 `((1 '(face nil display ,(char-to-string 8217))))))
+         (when (memq 'double-quote astute-transform-list)
+           (cons astute-double-quote-open-regexp
+                 `((1 '(face nil display ,(char-to-string 8220))))))
+         (when (memq 'double-quote astute-transform-list)
+           (cons astute-double-quote-close-regexp
+                 `((1 '(face nil display ,(char-to-string 8221))))))
+         (when (memq 'en-dash astute-transform-list)
+           (cons astute-en-dash-regexp
+                 `((1 '(face nil display ,(char-to-string 8211))))))
+         (when (memq 'em-dash astute-transform-list)
+           (cons astute-em-dash-regexp
+                 `((1 '(face nil display ,(char-to-string 8212))))))
+         (when astute-double-space-sentences
+           (cons (sentence-end)
+                 `((2 '(face nil display "  "))))))))
 
 ;;;###autoload
 (define-minor-mode astute-mode

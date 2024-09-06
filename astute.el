@@ -1,9 +1,12 @@
 ;;; astute.el --- A minor mode to redisplay smart typography  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021-2023  Paul W. Rankin
+;; Copyright (C) 2021-2024  Paul W. Rankin
 
-;; Author: Paul W. Rankin <hello@paulwrankin.com>
+;; Author: Paul W. Rankin <rnkn@rnkn.xyz>
 ;; Keywords: faces, wp
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "25.1"))
+;; URL: https://github.com/rnkn/astute
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

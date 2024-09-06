@@ -69,7 +69,9 @@
 
 (defcustom astute-lighter
   (format " %sAs%s" (char-to-string 8220) (char-to-string 8221))
-  "Mode-line indicator for `astute-mode'.")
+  "Mode-line indicator for `astute-mode'."
+  :type 'string
+  :safe 'stringp)
 
 (defcustom astute-transform-list
   '(single-quote double-quote en-dash em-dash)

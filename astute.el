@@ -1,4 +1,4 @@
-;;; astute.el --- A minor mode to redisplay smart typography  -*- lexical-binding: t; -*-
+;;; astute.el --- A minor mode to redisplay `smart' typography  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021-2024  Paul W. Rankin
 
@@ -99,6 +99,7 @@
 (defvar-local astute--keywords nil)
 
 (defun astute-init-font-lock ()
+  "Return a new list of `font-lock-keywords'."
   (delq nil
         (list
          (when (memq 'single-quote astute-transform-list)
@@ -134,7 +135,7 @@
 
 ;;;###autoload
 (define-minor-mode astute-mode
-  "Redisplay smart typography."
+  "Redisplay `smart' typography."
   :lighter astute-lighter
   (when astute--keywords
     (font-lock-remove-keywords nil astute--keywords)

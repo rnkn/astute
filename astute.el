@@ -41,6 +41,11 @@
 
 ;;; Code:
 
+(defgroup astute ()
+  "A minor mode to redisplay ``smart'' typography."
+  :prefix "astute-"
+  :group 'text)
+
 (defvar astute-double-quote-open-regexp
   "\\(\"\\)[[:alnum:][:punct:]]")
 

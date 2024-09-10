@@ -138,8 +138,20 @@
       (when (setq astute--keywords (astute-init-font-lock))
         (font-lock-add-keywords nil astute--keywords t)
         (font-lock-flush))
-    (with-silent-modifications
-      (remove-text-properties (point-min) (point-max) '(display)))))
+    (save-excursion
+      (save-restriction)
+      (widen)
+      (goto-char (point-min))
+      (with-silent-modifications
+        (let (match)
+          (while (setq match (text-property-search-forward 'display))
+            (when (seq-some
+                   (lambda (char)
+                     (= char (string-to-char (prop-match-value match))))
+                   '(8216 8217 8220 8221 8211 8212))
+              (remove-text-properties (prop-match-beginning match)
+                                      (prop-match-end match)
+                                      '(display)))))))))
 
 (provide 'astute)
 

@@ -5,7 +5,7 @@
 ;; Author: Paul W. Rankin <rnkn@rnkn.xyz>
 ;; Keywords: faces, wp
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "27.1"))
+;; Package-Requires: ((emacs "25.1"))
 ;; URL: https://github.com/rnkn/astute
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -148,20 +148,20 @@
       (when (setq astute--keywords (astute-init-font-lock))
         (font-lock-add-keywords nil astute--keywords t)
         (font-lock-flush))
-    (save-excursion
-      (save-restriction)
+    (save-restriction
       (widen)
-      (goto-char (point-min))
       (with-silent-modifications
-        (let (match)
-          (while (setq match (text-property-search-forward 'display))
-            (when (seq-some
-                   (lambda (char)
-                     (= char (string-to-char (prop-match-value match))))
-                   '(8216 8217 8220 8221 8211 8212))
-              (remove-text-properties (prop-match-beginning match)
-                                      (prop-match-end match)
-                                      '(display)))))))))
+        (let ((x (point-min))
+              display-string)
+          (while (and x (< x (point-max)))
+            (when (setq x (next-single-property-change x 'display))
+              (setq display-string (get-char-property x 'display))
+              (when (and (stringp display-string)
+                         (seq-some (lambda (char)
+                                     (= char (string-to-char display-string)))
+                                   '(8216 8217 8220 8221 8211 8212)))
+                (remove-text-properties x (setq x (next-single-property-change x 'display))
+                                        '(display))))))))))
 
 (provide 'astute)
 

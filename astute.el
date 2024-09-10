@@ -93,11 +93,6 @@
   "List of regular expressions that should be prefixed by a closing quote."
   :type '(repeat regexp))
 
-(defcustom astute-double-space-sentences
-  nil
-  "When non-nil, display sentences as double-spaced."
-  :type 'boolean)
-
 (defvar-local astute--keywords nil)
 
 (defun astute-init-font-lock ()
@@ -130,10 +125,7 @@
                  `((1 '(face nil display ,(char-to-string 8211))))))
          (when (memq 'em-dash astute-transform-list)
            (cons astute-em-dash-regexp
-                 `((1 '(face nil display ,(char-to-string 8212))))))
-         (when astute-double-space-sentences
-           (cons (sentence-end)
-                 `((2 '(face nil display "  "))))))))
+                 `((1 '(face nil display ,(char-to-string 8212)))))))))
 
 ;;;###autoload
 (define-minor-mode astute-mode

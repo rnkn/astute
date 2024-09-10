@@ -160,8 +160,10 @@
                          (seq-some (lambda (char)
                                      (= char (string-to-char display-string)))
                                    '(8216 8217 8220 8221 8211 8212)))
-                (remove-text-properties x (setq x (next-single-property-change x 'display))
-                                        '(display))))))))))
+                (remove-text-properties
+                 x (setq x (or (next-single-property-change x 'display)
+                               (point-max)))
+                 '(display))))))))))
 
 (provide 'astute)
 

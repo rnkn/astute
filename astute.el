@@ -85,6 +85,7 @@
 (defcustom astute-prefix-single-quote-exceptions
   '("bout"
     "em"
+    "n'"
     "cause"
     "round"
     "twas"
@@ -114,14 +115,16 @@
            (cons astute-single-quote-inner-regexp
                  `((1 '(face nil display ,(char-to-string 8217))))))
          (when (memq 'single-quote astute-transform-list)
+           (cons astute-single-quote-close-regexp
+                 `((1 '(face nil display ,(char-to-string 8217))))))
+         (when (memq 'single-quote astute-transform-list)
            (cons (string-join
-                  (cons astute-single-quote-close-regexp
-                        (mapcar
-                         (lambda (r)
-                           (concat "\\(?1:'\\)" r))
-                         (cons "[0-9][0-9]s?"
-                               (mapcar 'astute-case-insensitize
-                                       astute-prefix-single-quote-exceptions))))
+                  (mapcar
+                   (lambda (r)
+                     (concat "\\(?1:'\\)" r))
+                   (cons "[0-9][0-9]s?"
+                         (mapcar 'astute-case-insensitize
+                                 astute-prefix-single-quote-exceptions)))
                   "\\|")
                  `((1 '(face nil display ,(char-to-string 8217))))))
          (when (memq 'double-quote astute-transform-list)

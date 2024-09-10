@@ -87,7 +87,9 @@
     "bout"
     "em"
     "cause"
-    "round")
+    "round"
+    "twas"
+    "tis")
   "List of regular expressions that should be prefixed by a closing quote."
   :type '(repeat regexp))
 

@@ -5,7 +5,7 @@
 ;; Author: Paul W. Rankin <rnkn@rnkn.xyz>
 ;; Keywords: faces, wp
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "27.1"))
 ;; URL: https://github.com/rnkn/astute
 
 ;; This program is free software; you can redistribute it and/or modify

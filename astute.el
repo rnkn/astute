@@ -82,18 +82,26 @@
               (const :tag "Em Dashes"     em-dash))
   :safe 'listp)
 
-(defcustom astute-prefix-single-quote-close-regexp
-  '("[0-9][0-9]s?"
-    "bout"
+(defcustom astute-prefix-single-quote-exceptions
+  '("bout"
     "em"
     "cause"
     "round"
     "twas"
     "tis")
   "List of regular expressions that should be prefixed by a closing quote."
-  :type '(repeat regexp))
+  :type '(repeat string))
 
 (defvar-local astute--keywords nil)
+
+(defun astute-case-insensitize (string)
+  "Return a case-insensitive regular expression for STRING."
+  (mapconcat (lambda (c)
+               (let ((l (downcase c)) (u (upcase c)))
+                 (if (eq l u)
+                     (string l)
+                   (format "[%c%c]" u l))))
+             string))
 
 (defun astute-init-font-lock ()
   "Return a new list of `font-lock-keywords'."
@@ -111,7 +119,9 @@
                         (mapcar
                          (lambda (r)
                            (concat "\\(?1:'\\)" r))
-                         astute-prefix-single-quote-close-regexp))
+                         (cons "[0-9][0-9]s?"
+                               (mapcar 'astute-case-insensitize
+                                       astute-prefix-single-quote-exceptions))))
                   "\\|")
                  `((1 '(face nil display ,(char-to-string 8217))))))
          (when (memq 'double-quote astute-transform-list)

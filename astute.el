@@ -62,10 +62,10 @@
   "[:alnum:]\\('\\)[:alnum:]")
 
 (defvar astute-en-dash-regexp
-  "\\(--\\)[^-]")
+  "[^-]\\(--\\)[^-]")
 
 (defvar astute-em-dash-regexp
-  "\\(---\\)[^-]")
+  "[^-]\\(---\\)[^-]")
 
 (defcustom astute-lighter
   (format " %sAs%s" (char-to-string 8220) (char-to-string 8221))
